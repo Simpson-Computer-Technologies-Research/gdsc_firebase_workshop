@@ -8,6 +8,40 @@ import { getAuthValue, from64 } from "./utils";
 const app = express();
 
 /**
+ * Get a key in the firebase database for the specific user
+ * @header Authorization - The authorization header
+ * @body {string} key - The key to get
+ * @returns {object} The response object
+ */
+app.get("/get", (req, res) => {
+  // Get the request headers from the request
+  const headers = req.headers;
+  const encodedEmail = getAuthValue(headers.authorization);
+
+  // Get the request body from the request
+  const body = req.body;
+  const key = body.key;
+
+  // Get the key from the firebase database
+  const data = {
+    documentId: encodedEmail,
+    key: key,
+  };
+
+  // Check if the key exists in the database, if not, return an error
+  const doesNotExist = false;
+  if (doesNotExist) {
+    return res.status(400).send({
+      status: 400,
+      response_type: "case",
+      response: `error - key: ${key} does not exist in the database`,
+    });
+  }
+
+  // Get from firebase db TODO: implement
+});
+
+/**
  * Create a new key in the firebase database for the specific user
  * @header Authorization - The authorization header
  * @body {string} key - The key to create
@@ -27,7 +61,8 @@ app.post("/create", (req, res) => {
 
   // Create a new key in the firebase database for the encoded email
   const data = {
-    student_email: encodedEmail,
+    documentId: encodedEmail,
+    student_email: email,
     key: key,
     value: value,
   };

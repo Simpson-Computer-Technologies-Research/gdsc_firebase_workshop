@@ -1,4 +1,4 @@
-import { tob64 } from "./utils";
+import { tob64 } from "./utils.js";
 import express from "express";
 
 // CHANGE TO YOUR SCHOOL EMAIL
@@ -15,29 +15,60 @@ const headers = {
 /**
  * Home page route for first interaction with express and requests
  */
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   res.send(`Hello ${email}`);
+});
+
+/**
+ * GET Request endpoint for get a key in the database
+ */
+app.get("/get", async (req, res) => {
+  // Send an http request to the firebase server with the headers and body
+  await fetch("http://localhost:9000/get", {
+    method: "GET",
+    headers,
+    body: JSON.stringify(req.body),
+  });
+
+  // Return the response
 });
 
 /**
  * POST Request endpoint for creating a new key in the database
  */
-app.post("/create", (req, res) => {
+app.post("/create", async (req, res) => {
   // Send an http request to the firebase server with the headers and body
+  await fetch("http://localhost:9000/create", {
+    method: "POST",
+    headers,
+    body: JSON.stringify(req.body),
+  });
+
+  // Return the response
 });
 
 /**
  * DELETE Request endpoint for deleting a key in the database
  */
-app.delete("/delete", (req, res) => {
+app.delete("/delete", async (req, res) => {
   // Send an http request to the firebase server with the headers and body
+  await fetch("http://localhost:9000/delete", {
+    method: "DELETE",
+    headers,
+    body: JSON.stringify(req.body),
+  });
 });
 
 /**
  * PUT Request endpoint for deleting a key in the database
  */
-app.put("/delete", (req, res) => {
+app.put("/delete", async (req, res) => {
   // Send an http request to the firebase server with the headers and body
+  await fetch("http://localhost:9000/delete", {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(req.body),
+  });
 });
 
 /**
