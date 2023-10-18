@@ -33,7 +33,7 @@ app.get("/get", (req, res) => {
   if (doesNotExist) {
     return res.status(400).send({
       status: 400,
-      response_type: "case",
+      response_type: "error_case",
       response: `error - key: ${key} does not exist in the database`,
     });
   }
@@ -72,7 +72,7 @@ app.post("/create", (req, res) => {
   if (alreadyExists) {
     return res.status(400).send({
       status: 400,
-      response_type: "case",
+      response_type: "error_case",
       response: `error - key: ${key} already exists in the database`,
     });
   }
@@ -106,7 +106,7 @@ app.delete("/delete", (req, res) => {
   if (doesNotExist) {
     return res.status(400).send({
       status: 400,
-      response_type: "case",
+      response_type: "error_case",
       response: `error - key: ${key} does not exist in the database`,
     });
   }
@@ -143,7 +143,7 @@ app.put("/update", (req, res) => {
   if (doesNotExist) {
     return res.status(400).send({
       status: 400,
-      response_type: "case",
+      response_type: "error_case",
       response: `error - key: ${key} does not exist in the database`,
     });
   }
